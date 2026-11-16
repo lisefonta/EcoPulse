@@ -1,0 +1,362 @@
+
+/* CONFIGURAÇÕES GERAIS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f7f5;
+    color: #26372e;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* MENU LATERAL */
+
+.sidebar {
+    width: 250px;
+    background: #153c2b;
+    color: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 55px;
+}
+
+.brand-icon {
+    font-size: 30px;
+}
+
+.brand h1 {
+    font-size: 25px;
+    letter-spacing: -1px;
+}
+
+.menu-label {
+    font-size: 10px;
+    color: #9cb8a6;
+    letter-spacing: 1.5px;
+    margin-bottom: 18px;
+}
+
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-link {
+    color: #c6d8cc;
+    text-decoration: none;
+    padding: 14px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: #286344;
+    color: white;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 20px 10px;
+    color: #b6cbbb;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.sidebar-footer span {
+    font-size: 25px;
+}
+
+/* CONTEÚDO PRINCIPAL */
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 35px 45px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.eyebrow {
+    color: #819389;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+}
+
+.topbar h2 {
+    font-size: 27px;
+    margin-top: 6px;
+}
+
+.system-status {
+    background: white;
+    padding: 11px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #38a66b;
+    border-radius: 50%;
+    margin-right: 7px;
+}
+
+/* BOAS-VINDAS */
+
+.welcome {
+    margin-bottom: 28px;
+}
+
+.welcome h2 {
+    font-size: 21px;
+    margin-bottom: 8px;
+}
+
+.welcome p,
+.section-heading p {
+    color: #829087;
+    font-size: 13px;
+}
+
+/* CARDS */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    border: 1px solid #e8eee9;
+    box-shadow: 0 4px 15px rgba(30, 60, 40, 0.04);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+}
+
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #718078;
+    font-size: 13px;
+}
+
+.card-icon {
+    font-size: 22px;
+}
+
+.metric {
+    font-size: 34px;
+    font-weight: 700;
+    color: #23734a;
+    margin: 22px 0 10px;
+}
+
+.card small {
+    color: #a0aaa4;
+    font-size: 11px;
+}
+
+/* PAINÉIS */
+
+.panel {
+    background: white;
+    border: 1px solid #e8eee9;
+    border-radius: 14px;
+    padding: 25px;
+    margin-top: 25px;
+    box-shadow: 0 4px 15px rgba(30, 60, 40, 0.04);
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-heading h3 {
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+
+.chart-label {
+    background: #e8f4ec;
+    color: #23734a;
+    font-size: 10px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* GRÁFICO */
+
+#chart-container {
+    position: relative;
+    height: 260px;
+    width: 100%;
+}
+
+/* TABELA */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+th {
+    text-align: left;
+    color: #89958d;
+    font-size: 10px;
+    padding: 15px 12px;
+    background: #f8faf8;
+}
+
+td {
+    padding: 17px 12px;
+    border-bottom: 1px solid #edf1ed;
+    font-size: 12px;
+}
+
+td:first-child {
+    font-weight: 600;
+    color: #26734a;
+}
+
+/* RODAPÉ */
+
+footer {
+    text-align: center;
+    color: #a0aaa4;
+    font-size: 11px;
+    padding: 35px 0 10px;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 210px;
+    }
+
+    .main-content {
+        padding: 25px;
+    }
+
+    .dashboard {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .brand {
+        margin-bottom: 20px;
+    }
+
+    .sidebar nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+    .main-content {
+        padding: 22px 16px;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+}
+
+/* BOTÕES DOS GRÁFICOS AMBIENTAIS */
+
+.chart-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 24px 0;
+}
+
+.chart-btn {
+    background-color: #f0f7f2;
+    color: #236b45;
+    border: 1px solid #d6e8dc;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.chart-btn:hover {
+    background-color: #dcefe3;
+    transform: translateY(-2px);
+}
+
+.chart-btn.active {
+    background-color: #278451;
+    color: white;
+    border-color: #278451;
+    box-shadow: 0 4px 12px rgba(39, 132, 81, 0.2);
+}

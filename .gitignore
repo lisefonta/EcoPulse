@@ -1,0 +1,37 @@
+
+# Arquivos temporários do Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Variáveis de ambiente e informações privadas
+.env
+.env.*
+!.env.example
+
+# Banco de dados local
+*.db
+*.sqlite
+*.sqlite3
+
+# Arquivos temporários e logs
+*.log
+*.tmp
+
+# Cache de testes
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Configurações locais do editor
+.vscode/
+.idea/
+
+# Arquivos temporários do sistema
+.DS_Store
+Thumbs.db

@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EcoPulse | Dashboard Ambiental</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="layout">
+
+        <!-- MENU LATERAL -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <span class="brand-icon">🌿</span>
+                <h1>EcoPulse</h1>
+            </div>
+
+            <p class="menu-label">MENU PRINCIPAL</p>
+
+            <nav>
+                <a href="/" class="nav-link active">
+                    <span>▦</span> Dashboard
+                </a>
+
+                <a href="#indicators" class="nav-link">
+                    <span>◉</span> Indicadores
+                </a>
+
+                <a href="#history" class="nav-link">
+                    <span>▤</span> Histórico
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <span>🌎</span>
+                <p>
+                    Monitoramento inteligente para
+                    um futuro sustentável.
+                </p>
+            </div>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="main-content">
+
+            <!-- CABEÇALHO -->
+            <header class="topbar">
+
+                <div>
+                    <span class="eyebrow">
+                        MONITORAMENTO AMBIENTAL
+                    </span>
+
+                    <h2>Visão Geral</h2>
+                </div>
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    Sistema online
+                </div>
+
+            </header>
+
+            <!-- BOAS-VINDAS -->
+            <section class="welcome">
+
+                <div>
+                    <h2>Olá! Bem-vindo ao EcoPulse 🌱</h2>
+
+                    <p>
+                        Acompanhe os indicadores ambientais
+                        registrados.
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- INDICADORES AMBIENTAIS -->
+            <section id="indicators" class="dashboard">
+
+                <!-- TEMPERATURA -->
+                <article class="card temperature-card">
+
+                    <div class="card-top">
+                        <span>Temperatura</span>
+                        <span class="card-icon">🌡️</span>
+                    </div>
+
+                    <p id="temperature" class="metric">
+                        -- °C
+                    </p>
+
+                    <small>Última medição registrada</small>
+
+                </article>
+
+                <!-- UMIDADE -->
+                <article class="card humidity-card">
+
+                    <div class="card-top">
+                        <span>Umidade do ar</span>
+                        <span class="card-icon">💧</span>
+                    </div>
+
+                    <p id="humidity" class="metric">
+                        -- %
+                    </p>
+
+                    <small>Última medição registrada</small>
+
+                </article>
+
+                <!-- QUALIDADE DO AR -->
+                <article class="card air-card">
+
+                    <div class="card-top">
+                        <span>Qualidade do ar</span>
+                        <span class="card-icon">🍃</span>
+                    </div>
+
+                    <p id="air-quality" class="metric">
+                        --
+                    </p>
+
+                    <small>Índice informado na medição</small>
+
+                </article>
+
+            </section>
+
+            <!-- MONITORAMENTO AMBIENTAL -->
+            <section class="panel chart-panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>Monitoramento ambiental</h3>
+
+                        <p>
+                            Histórico dos indicadores
+                            ambientais registrados
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- BOTÕES INTERATIVOS -->
+                <div class="chart-buttons">
+
+                    <button
+                        type="button"
+                        class="chart-btn active"
+                        data-indicator="temperature">
+
+                        🌡️ Temperatura
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="chart-btn"
+                        data-indicator="humidity">
+
+                        💧 Umidade
+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="chart-btn"
+                        data-indicator="air_quality">
+
+                        🍃 Qualidade do ar
+
+                    </button>
+
+                </div>
+
+                <!-- GRÁFICO -->
+                <div id="chart-container">
+
+                    <canvas id="temperature-chart"></canvas>
+
+                </div>
+
+            </section>
+
+            <!-- HISTÓRICO DE MEDIÇÕES -->
+            <section id="history"
+                     class="panel history-panel">
+
+                <div class="section-heading">
+
+                    <div>
+                        <h3>Histórico de medições</h3>
+
+                        <p>
+                            Registros armazenados no EcoPulse
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>LOCALIZAÇÃO</th>
+                                <th>TEMPERATURA</th>
+                                <th>UMIDADE</th>
+                                <th>QUALIDADE DO AR</th>
+                                <th>DATA</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="measurements">
+
+                            <tr>
+                                <td colspan="5">
+                                    Carregando medições...
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            <!-- RODAPÉ -->
+            <footer>
+                EcoPulse © 2026 —
+                Tecnologia a favor do meio ambiente.
+            </footer>
+
+        </main>
+
+    </div>
+
+    <!-- BIBLIOTECA DE GRÁFICOS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JAVASCRIPT DO ECOPULSE -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
