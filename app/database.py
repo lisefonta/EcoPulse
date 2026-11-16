@@ -10,12 +10,27 @@ DATABASE = BASE_DIR / "data" / "ecopulse.db"
 
 
 def get_connection():
+    """
+    Cria a pasta do banco de dados, caso não exista,
+    e estabelece a conexão com o SQLite.
+    """
+
+    # Garante que a pasta data exista no computador ou servidor
+    DATABASE.parent.mkdir(parents=True, exist_ok=True)
+
+    # Abre a conexão com o banco de dados
     connection = sqlite3.connect(DATABASE)
     connection.row_factory = sqlite3.Row
+
     return connection
 
 
 def init_db():
+    """
+    Inicializa o banco de dados e cria as tabelas
+    necessárias para o funcionamento do EcoPulse.
+    """
+
     connection = get_connection()
 
     try:
@@ -59,7 +74,9 @@ def init_db():
                 ADD COLUMN air_quality REAL
             """)
 
+        # Confirma as alterações no banco
         connection.commit()
 
     finally:
+        # Encerra a conexão com segurança
         connection.close()
