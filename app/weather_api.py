@@ -1,8 +1,33 @@
 
+import time
 import requests
+
+CACHE_TEMPO = 15 * 60  # 15 minutos
+cache_clima = {
+    "dados": None,
+    "atualizado_em": 0,
+    "bloqueado_ate": 0
+}
 
 
 def obter_clima_atual():
+    agora = time.time()
+
+    # Reutiliza os dados enquanto o cache estiver válido.
+    if (
+        cache_clima["dados"] is not None
+        and agora - cache_clima["atualizado_em"] < CACHE_TEMPO
+    ):
+        return cache_clima["dados"].copy()
+
+    # Evita novas chamadas durante bloqueios temporários.
+    if agora < cache_clima["bloqueado_ate"]:
+        return (
+            cache_clima["dados"].copy()
+            if cache_clima["dados"] is not None
+            else None
+        )
+
     url = "https://api.open-meteo.com/v1/forecast"
 
     parametros = {
@@ -16,24 +41,45 @@ def obter_clima_atual():
         resposta = requests.get(
             url,
             params=parametros,
-            timeout=10
+            timeout=15
         )
+
+        if resposta.status_code == 429:
+            print("Open-Meteo: limite de requisições atingido.")
+            cache_clima["bloqueado_ate"] = agora + CACHE_TEMPO
+
+            return (
+                cache_clima["dados"].copy()
+                if cache_clima["dados"] is not None
+                else None
+            )
 
         resposta.raise_for_status()
 
         dados = resposta.json()
         atual = dados["current"]
 
-        return {
+        resultado = {
             "location": "São Paulo - SP",
             "temperature": atual["temperature_2m"],
             "humidity": atual["relative_humidity_2m"],
             "measured_at": atual["time"]
         }
 
+        cache_clima["dados"] = resultado.copy()
+        cache_clima["atualizado_em"] = time.time()
+        cache_clima["bloqueado_ate"] = 0
+
+        return resultado
+
     except (requests.RequestException, KeyError, ValueError) as erro:
         print(f"Erro ao consultar Open-Meteo: {erro}")
-        return None
+
+        return (
+            cache_clima["dados"].copy()
+            if cache_clima["dados"] is not None
+            else None
+        )
 
 
 def obter_qualidade_ar():
