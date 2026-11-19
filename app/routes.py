@@ -97,8 +97,8 @@ def get_measurements():
 @main.route("/weather", methods=["GET"])
 def get_weather():
     """
-    Consulta os dados meteorológicos atuais.
-    Não grava registros no histórico.
+    Consulta dados meteorológicos reais
+    e registra automaticamente as medições.
     """
 
     dados = obter_clima_atual()
@@ -111,10 +111,76 @@ def get_weather():
     qualidade = obter_qualidade_ar()
 
     dados["air_quality"] = (
-        qualidade["air_quality"]
+        qualidade.get("air_quality")
         if qualidade is not None
         else None
     )
+
+    # Verifica se os dados estão completos
+    campos = [
+        "temperature",
+        "humidity",
+        "location",
+        "measured_at"
+    ]
+
+    dados_validos = all(
+        dados.get(campo) is not None
+        and dados.get(campo) != ""
+        for campo in campos
+    )
+
+    if dados_validos:
+        connection = None
+
+        try:
+            connection = get_connection()
+
+            # Salva a medição sem duplicar
+            # localização e horário
+            connection.execute("""
+                INSERT OR IGNORE INTO weather_measurements
+                (
+                    temperature,
+                    humidity,
+                    air_quality,
+                    location,
+                    measured_at
+                )
+                VALUES (?, ?, ?, ?, ?)
+            """, (
+                dados["temperature"],
+                dados["humidity"],
+                dados["air_quality"],
+                dados["location"],
+                dados["measured_at"]
+            ))
+
+            # Completa a qualidade do ar
+            # quando estiver disponível
+            if dados["air_quality"] is not None:
+                connection.execute("""
+                    UPDATE weather_measurements
+                    SET air_quality = ?
+                    WHERE location = ?
+                      AND measured_at = ?
+                      AND air_quality IS NULL
+                """, (
+                    dados["air_quality"],
+                    dados["location"],
+                    dados["measured_at"]
+                ))
+
+            connection.commit()
+
+            print("Medição meteorológica registrada.")
+
+        except Exception as erro:
+            print(f"Erro ao salvar medição: {erro}")
+
+        finally:
+            if connection is not None:
+                connection.close()
 
     return jsonify(dados), 200
 
@@ -122,7 +188,8 @@ def get_weather():
 @main.route("/weather/history", methods=["GET"])
 def get_weather_history():
     """
-    Retorna as medições armazenadas no SQLite.
+    Retorna o histórico de medições
+    meteorológicas armazenadas.
     """
 
     connection = get_connection()
